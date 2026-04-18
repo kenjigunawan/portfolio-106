@@ -7,7 +7,7 @@ function $$(selector, context = document) {
 // Step 3: Automatic navigation menu
 const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
   ? "/"
-  : "/portfolio/";
+  : "/portfolio-106/";
 
 const pages = [
   { url: '', title: 'Home' },
