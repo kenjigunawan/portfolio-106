@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Personal Portfolio Website",
+    "year": 2025,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Built a personal portfolio website using HTML, CSS, and JavaScript, featuring dynamic project rendering, GitHub API integration, and a dark mode switcher."
+  },
+  {
+    "title": "Data Visualization Dashboard",
+    "year": 2025,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Created an interactive data visualization dashboard using D3.js to explore and analyze large datasets with dynamic charts and filters."
+  },
+  {
+    "title": "COVID-19 Data Analysis",
+    "year": 2024,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Analyzed COVID-19 spread patterns using Python and pandas, producing visualizations that highlight trends across different regions and demographics."
+  },
+  {
+    "title": "Machine Learning Housing Predictor",
+    "year": 2024,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Developed a machine learning model using scikit-learn to predict housing prices in San Diego based on neighborhood features, size, and amenities."
+  },
+  {
+    "title": "Social Network Analysis",
+    "year": 2024,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Performed graph-based social network analysis on a Twitter dataset to identify influential nodes and community structures using NetworkX."
+  },
+  {
+    "title": "Restaurant Review Sentiment Classifier",
+    "year": 2023,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Built a natural language processing pipeline to classify Yelp restaurant reviews as positive or negative using TF-IDF features and logistic regression."
+  },
+  {
+    "title": "Weather Pattern Explorer",
+    "year": 2023,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Designed an interactive web app to explore historical weather patterns using NOAA data, built with Python Flask and Chart.js."
+  },
+  {
+    "title": "UCSD Course Planner",
+    "year": 2023,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Created a tool to help students plan their UCSD course schedule, checking prerequisite chains and generating optimized four-year plans."
+  },
+  {
+    "title": "Spotify Listening Trends",
+    "year": 2024,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Analyzed personal Spotify streaming history to uncover listening trends, top artists, and genre preferences using Python and Matplotlib."
+  },
+  {
+    "title": "Transit Accessibility Map",
+    "year": 2023,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Mapped public transit accessibility across San Diego using GTFS data and Leaflet.js to identify underserved neighborhoods."
+  },
+  {
+    "title": "Image Classification with CNNs",
+    "year": 2024,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Implemented a convolutional neural network using PyTorch to classify images from the CIFAR-10 dataset, achieving 85% accuracy."
+  },
+  {
+    "title": "SQL Database Design Project",
+    "year": 2023,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Designed and implemented a relational database schema for a university course registration system, including complex queries and stored procedures."
+  }
+]

@@ -83,6 +83,39 @@ select.addEventListener('input', function (event) {
   setColorScheme(event.target.value);
 });
 
+// Lab 4: fetchJSON - fetch and parse a JSON file from a URL
+export async function fetchJSON(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch projects: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching or parsing JSON data:', error);
+  }
+}
+
+// Lab 4: renderProjects - dynamically render project articles into a container
+export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+  containerElement.innerHTML = '';
+  for (const project of projects) {
+    const article = document.createElement('article');
+    article.innerHTML = `
+      <${headingLevel}>${project.title}</${headingLevel}>
+      <img src="${project.image}" alt="${project.title}">
+      <p>${project.description}</p>
+    `;
+    containerElement.appendChild(article);
+  }
+}
+
+// Lab 4: fetchGithubData - fetch public GitHub user data
+export async function fetchGithubData(username) {
+  return fetchJSON(`https://api.github.com/users/${username}`);
+}
+
 // Step 5: Better contact form (optional)
 let form = document.querySelector('form');
 form?.addEventListener('submit', function (event) {
