@@ -138,6 +138,97 @@ button {
     }
 }
 
+/* ── Lab 5: Year display in project cards (Step 0.1) ─────────────────────── */
+
+.project-year {
+    font-family: Baskerville, serif;
+    font-variant-numeric: oldstyle-nums;
+    color: oklch(50% 10% 200);
+    font-size: 0.9em;
+    margin: 0;
+}
+
+/* ── Lab 5: Pie chart container & SVG (Steps 1.1, 2.3) ──────────────────── */
+
+.viz-container {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    flex-wrap: wrap;
+    margin-block: 1em;
+}
+
+#projects-pie-plot {
+    max-width: 20em;
+    margin-block: 2em;
+    overflow: visible;
+}
+
+/* ── Lab 5: Pie slice interaction (Steps 5.1, 5.2) ──────────────────────── */
+
+#projects-pie-plot path {
+    transition: opacity 300ms, fill 300ms;
+    cursor: pointer;
+}
+
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+    opacity: 0.5;
+}
+
+.selected {
+    --color: oklch(60% 45% 0) !important;
+}
+
+.selected:is(path) {
+    fill: var(--color);
+}
+
+/* ── Lab 5: Legend (Steps 2.2, 2.3) ─────────────────────────────────────── */
+
+.legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+    list-style: none;
+    padding: 0.5em 1em;
+    margin: 0;
+    border: 1px solid oklch(50% 10% 200 / 30%);
+    border-radius: 0.4em;
+    flex: 1;
+    gap: 0.2em 1em;
+}
+
+.legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.2em 0;
+    font-size: 0.9em;
+}
+
+.swatch {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    aspect-ratio: 1 / 1;
+    background-color: var(--color);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ── Lab 5: Search bar (Step 4.1) ────────────────────────────────────────── */
+
+.searchBar {
+    display: block;
+    width: 100%;
+    max-width: 40em;
+    padding: 0.5em 1em;
+    margin-block: 1em;
+    font: inherit;
+    border: 1px solid oklch(50% 10% 200 / 40%);
+    border-radius: 0.5em;
+    box-sizing: border-box;
+}
+
 /* Tablets and up */
 @media (min-width: 601px) {
     header {
