@@ -215,7 +215,21 @@ button {
     flex-shrink: 0;
 }
 
-/* ── Lab 5: Search bar (Step 4.1) ────────────────────────────────────────── */
+/* ── Lab 5: Search bar & reset button (Step 4.1) ────────────────────────── */
+
+.resetFilters {
+    margin-inline-start: 0.5em;
+    padding: 0.4em 0.8em;
+    font: inherit;
+    cursor: pointer;
+    border: 1px solid oklch(50% 10% 200 / 40%);
+    border-radius: 0.5em;
+    background: none;
+}
+
+.resetFilters:hover {
+    background: oklch(50% 10% 200 / 10%);
+}
 
 .searchBar {
     display: block;

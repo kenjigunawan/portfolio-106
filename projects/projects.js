@@ -17,12 +17,18 @@ const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
 const colors = d3.scaleOrdinal(d3.schemeTableau10);
 
 // ─── State ──────────────────────────────────────────────────────────────────
-// (Extra Credit: track both filters as independent state so they compose)
-let query = '';         // current search string
-let selectedYear = null; // currently selected pie year (null = none)
+// BUG FIX: both filters live here as plain variables — NOT inside closures.
+// This is the core fix. The buggy version stored the year selection only inside
+// the click handler's closure, so the search handler could never see it (and
+// vice versa). By lifting both pieces of state here, every event handler reads
+// the same source of truth before re-rendering.
+let query = '';          // current search string (set by search bar)
+let selectedYear = null; // currently selected pie year — null means "show all"
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
+// Returns projects matching only the search query (used to feed the pie chart,
+// so the pie always reflects "what years are in my search results").
 function getSearchFilteredProjects() {
     if (!query) return projects;
     return projects.filter(project => {
@@ -32,6 +38,10 @@ function getSearchFilteredProjects() {
     });
 }
 
+// Returns projects matching BOTH the search query AND the selected year.
+// This is what the project list shows. In the buggy version this function
+// didn't exist — the search handler only applied query, and the click handler
+// only applied year, so they always overwrote each other.
 function getFullyFilteredProjects() {
     const searchFiltered = getSearchFilteredProjects();
     if (selectedYear === null) return searchFiltered;
@@ -74,7 +84,10 @@ function renderPieChart(projectsGiven) {
             .attr('fill', colors(data[i].label))
             .attr('class', data[i].label === selectedYear ? 'selected' : '')
             .on('click', () => {
-                // Step 5.2: toggle — click selected wedge to deselect
+                // Step 5.2: toggle — click selected wedge to deselect.
+                // BUG FIX: we only update selectedYear here, then call updateView().
+                // The buggy version would call renderProjects(projectsGiven.filter(year))
+                // directly, which ignored query entirely — year-only filter.
                 selectedYear = selectedYear === data[i].label ? null : data[i].label;
                 updateView();
             });
@@ -91,22 +104,50 @@ function renderPieChart(projectsGiven) {
 }
 
 // ─── Master update: derive both views from current state ───────────────────
-// Extra Credit fix: the pie always reflects the search filter; the project list
-// reflects BOTH the search filter and the year selection. This means searching
-// then clicking a wedge (or vice-versa) composes correctly in both directions.
-
+// BUG FIX: this single function is called by BOTH event handlers. It always
+// reads the latest query and selectedYear, so both filters are always applied.
+// The buggy version had no equivalent — each handler re-rendered independently,
+// so whichever ran last would silently drop the other handler's filter.
 function updateView() {
+    // Project list = search query AND selected year both applied
     renderProjects(getFullyFilteredProjects(), projectsContainer, 'h2');
+    // Pie chart = search query only (so wedge sizes reflect search results,
+    // not the further year-filtered subset — otherwise clicking a wedge would
+    // collapse the pie to a single slice, which is useless)
     renderPieChart(getSearchFilteredProjects());
 }
 
 // ─── Step 4: Search ──────────────────────────────────────────────────────────
 
 const searchInput = document.querySelector('.searchBar');
+const resetButton = document.querySelector('.resetFilters');
+
 searchInput.addEventListener('change', (event) => {
-    query = event.target.value;
+    query = event.target.value; // update state...
+    updateView();               // ...then re-derive the whole view from state.
+    // BUG FIX: the buggy version called renderProjects(filteredProjects) here
+    // directly, which only applied the query and ignored selectedYear entirely.
+});
+
+// Show/hide the reset button whenever either filter is active
+function syncResetButton() {
+    resetButton.hidden = (query === '' && selectedYear === null);
+}
+
+// Clear both filters at once
+resetButton.addEventListener('click', () => {
+    query = '';
+    selectedYear = null;
+    searchInput.value = '';
     updateView();
 });
+
+// Wrap updateView to also sync the reset button after every render
+const _updateView = updateView;
+updateView = function () {
+    _updateView();
+    syncResetButton();
+};
 
 // ─── Initial render ──────────────────────────────────────────────────────────
 updateView();
