@@ -170,7 +170,7 @@ function renderScatterPlot(data, commitsData) {
       updateTooltipVisibility(false);
     });
 
-  createBrushSelector(svg);
+  createBrushSelector(svg, usableArea);
 }
 
 function renderTooltipContent(commit) {
@@ -257,9 +257,13 @@ function brushed(event) {
   renderLanguageBreakdown(selection);
 }
 
-function createBrushSelector(svg) {
-  // Create brush
-  svg.call(d3.brush().on('start brush end', brushed));
+function createBrushSelector(svg, usableArea) {
+  // Create brush with explicit extent matching the SVG coordinate space
+  svg.call(
+    d3.brush()
+      .extent([[usableArea.left, usableArea.top], [usableArea.right, usableArea.bottom]])
+      .on('start brush end', brushed),
+  );
 
   // Raise dots and everything after overlay so tooltips still work
   svg.selectAll('.dots, .overlay ~ *').raise();
